@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {Text, View, StyleSheet, Dimensions, ImageBackground} from 'react-native'
+import {View, StyleSheet, Dimensions} from 'react-native'
 import {HeaderBackButton} from "react-navigation-stack";
 import Loading from "../../../components/atoms/Loading/Loading";
 import {Button} from "react-native-paper";
@@ -9,19 +9,17 @@ import axios from 'axios'
 import DropdownAlert from 'react-native-dropdownalert';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import imageplaceholder from '../../../../assets/placeholders/imageplaceholder.jpg'
 import Constants from "expo-constants";
 import {uri, deleteHotelRoomImagesURI} from "../../../constants/Addresses";
 
-const {width, height} = Dimensions.get('window')
-const baseURI = uri
+const {width, height} = Dimensions.get('window');
+const baseURI = uri;
 
 const AddPhotos = props => {
-    const hotelid = (props.navigation.state.params.hotel._id)
-    const roomid = (props.navigation.state.params.room.key)
-    console.log('render')
+    const hotelid = (props.navigation.state.params.hotel._id);
+    const roomid = (props.navigation.state.params.room.key);
 
-    const alert = useRef(null)
+    const alert = useRef(null);
 
     const [photos, setphotos] = useState(
             [
@@ -51,61 +49,58 @@ const AddPhotos = props => {
                     updated: true
                 },
                 ]
-        )
-
-    const [loading, setloading] = useState(false)
+        );
+    const [loading, setloading] = useState(false);
 
     //Permissions
     useEffect(()=>{
         getPermissionAsync()
-    },[])
+    },[]);
     //Fetch Images
     useEffect(()=>{
         const fetchImages = async()=>{
-            setloading(true)
+            setloading(true);
             try {
-                const imgs = await axios.get("/hotels/"+hotelid+"/getimages/"+roomid)
-                console.log(imgs)
+                const imgs = await axios.get("/hotels/"+hotelid+"/getimages/"+roomid);
                 imgs.data.forEach((image) => {
                     photos.forEach((element, index) => {
                         if (image.includes(element.type)) {
-                            const temp = photos
+                            const temp = photos;
                             temp[index] = {
                                 ...temp[index],
                                 image: {uri: baseURI + '/hotels/room/images/' + image},
                                 updated: true
-                            }
+                            };
                             setphotos([...temp])
-                            console.log(baseURI + '/hotels/room/images/' + image)
                         }
                     })
-                })
+                });
                 setloading(false)
             }
             catch(e){
-                setloading(false)
+                setloading(false);
                 alert.current.alertWithType('error', 'Could not load images', 'Check your internet connection and try again');
             }
-        }
+        };
         fetchImages()
-    },[])
+    },[]);
     //Setting navigation save param
     useEffect(() => {
         props.navigation.setParams({
             saveHandler: onSave,
         })
-    }, [photos])
+    }, [photos]);
     //Setting navigation loading param
     useEffect(() => {
         props.navigation.setParams({
             loading: loading
         })
-    }, [loading])
+    }, [loading]);
 
     //Save Event Handler
     const onSave = async() => {
-        setloading(true)
-        let formData = new FormData()
+        setloading(true);
+        let formData = new FormData();
         photos.forEach((photo)=>{
             if(photo.updated===false){
                 let uriParts = photo.image.uri.split('.');
@@ -116,10 +111,10 @@ const AddPhotos = props => {
                     type: `image/${fileType}`,
                 },`image/${fileType}`)
             }
-        })
+        });
         const config = {
             onUploadProgress: function(progressEvent) {
-                var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total);
+                let percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total);
             },
             headers: { 'content-type': 'multipart/form-data' }
         }
@@ -129,7 +124,6 @@ const AddPhotos = props => {
                 setloading(false)
         }
         catch(e){
-            console.log(e)
             setloading(false)
             alert.current.alertWithType('error', 'Could not save images', 'Check your internet connection and try again');
         }
@@ -156,7 +150,8 @@ const AddPhotos = props => {
         }
         catch{
             setloading(false)
-            console.log('error')
+            alert.current.alertWithType('error', 'Could not delete image', 'Check your internet connection and try again');
+
         }
     }
 
