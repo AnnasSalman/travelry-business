@@ -11,13 +11,10 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import axios from 'axios'
-import Constants from "expo-constants";
+import {uri} from './src/constants/Addresses'
 import * as SecureStore from "expo-secure-store";
 
 
-const { manifest } = Constants;
-
-const uri = `http://${manifest.debuggerHost.split(':').shift()}:3000`;
 
 const getHeader = async() =>  await SecureStore.getItemAsync('Authorization')
 

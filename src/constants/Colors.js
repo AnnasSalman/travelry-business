@@ -3,7 +3,7 @@ const Colors = {
         primary: '#BB86FC',
         primaryVariant: '#3700B3',
         secondary: '#03DAC6',
-        background: '#121212',
+        background: '#101820FF',
         surface: '#121212',
         Error: '#CF6679',
         onPrimary: '#000000',

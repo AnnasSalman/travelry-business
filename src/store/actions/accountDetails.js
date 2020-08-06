@@ -2,10 +2,11 @@ export const ADD_BASIC_INFO = 'ADD_BASIC_INFO';
 export const ADD_ROOM_INFO = 'ADD_ROOM_INFO';
 export const REMOVE_ROOM_INFO = 'REMOVE_ROOM_INFO';
 export const UPDATE_ROOM_INFO = 'UPDATE_ROOM_INFO';
-export const ADD_FACILITY_INFO = 'ADD_FACILITY_INFO'
-export const ADD_AMENITIES = 'ADD_AMENITIES'
-export const ADD_POLICIES = 'ADD_POLICIES'
-export const ADD_ACCOUNT_DETAILS = 'ADD_ACCOUNT_DETAILS'
+export const UPDATE_ROOMS_INFO = 'UPDATE_ROOMS_INFO';
+export const ADD_FACILITY_INFO = 'ADD_FACILITY_INFO';
+export const ADD_AMENITIES = 'ADD_AMENITIES';
+export const ADD_POLICIES = 'ADD_POLICIES';
+export const ADD_ACCOUNT_DETAILS = 'ADD_ACCOUNT_DETAILS';
 
 
 export const addBasicInfo = basicInfo => {
@@ -20,6 +21,9 @@ export const removeRoomInfo = key => {
 export const updateRoomInfo = roomInfo => {
     return { type: UPDATE_ROOM_INFO, roomInfo: roomInfo };
 };
+export const updateRoomsInfo = rooms => {
+    return {type: UPDATE_ROOMS_INFO, rooms}
+}
 export const addFacilitiesInfo = facilityInfo => {
     return { type: ADD_FACILITY_INFO, facilityInfo };
 };

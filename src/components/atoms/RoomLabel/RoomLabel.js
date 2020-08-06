@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     },
     rooms: {
         flex: 4,
-        backgroundColor: Colors.DefaultTheme.primary,
+        backgroundColor: '#006B38FF',
         width: 140,
         height: '100%',
         borderRadius: 12,
@@ -76,12 +76,12 @@ const styles = StyleSheet.create({
         }
     },
     number:{
-        color: Colors.DefaultTheme.surface,
+        color: Colors.DarkTheme.background,
         fontSize: 35,
         fontWeight: 'bold',
-        shadowOpacity: 0.5,
-        shadowColor: 'black',
-        shadowRadius: 1,
+        shadowOpacity: 0.3,
+        shadowColor: 'white',
+        shadowRadius: 0.5,
         shadowOffset:{
             width: 1,
             height: 1

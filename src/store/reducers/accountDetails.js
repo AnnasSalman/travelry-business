@@ -3,6 +3,7 @@ import {
     ADD_ROOM_INFO,
     REMOVE_ROOM_INFO,
     UPDATE_ROOM_INFO,
+    UPDATE_ROOMS_INFO,
     ADD_FACILITY_INFO,
     ADD_AMENITIES,
     ADD_POLICIES,
@@ -50,6 +51,11 @@ export default (state= initialState, action) => {
             return {
                 ...state,
                 roomInfo: [...roomsAfterUpdate, action.roomInfo]
+            }
+        case UPDATE_ROOMS_INFO:
+            return {
+                ...state,
+                roomInfo: action.rooms
             }
         case ADD_FACILITY_INFO:
             return{

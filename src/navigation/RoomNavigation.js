@@ -6,6 +6,7 @@ import RoomDetails from "../screens/main/Rooms/RoomDetails";
 import EditProfile from "../screens/main/Rooms/EditProfile";
 
 import Colors from "../constants/Colors";
+import AddPhotos from "../screens/main/Rooms/AddPhotos";
 
 const RoomNavigation = createStackNavigator({
         room: {
@@ -19,6 +20,12 @@ const RoomNavigation = createStackNavigator({
         },
         editProfile: {
             screen: EditProfile,
+            navigationOptions: {
+                ...TransitionPresets.ModalTransition
+            }
+        },
+        addPhotos: {
+            screen: AddPhotos,
             navigationOptions: {
                 ...TransitionPresets.ModalTransition
             }

@@ -36,7 +36,7 @@ const tabScreenConfig = {
                 return <Ionicons name="ios-bed" size={25} color={tabInfo.tintColor} />;
             },
             // tabBarColor: Colors.DefaultTheme.splashBackground,
-            tabBarColor: 'rgba(0,50,0,0.5)'
+            tabBarColor: 'rgba(0,50,0,0.0)'
 
         }
     },

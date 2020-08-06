@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {View, Text, StyleSheet, ImageBackground, Dimensions, Platform} from 'react-native'
+import {View, Text, StyleSheet, ImageBackground, Dimensions} from 'react-native'
 import room_back from '../../../temporary/room_back.jpg'
 import { LinearGradient } from 'expo-linear-gradient';
 import Colors from "../../../constants/Colors";
@@ -7,10 +7,11 @@ import {useSelector} from "react-redux";
 import {PieChart} from 'react-native-chart-kit'
 import {Button} from "react-native-paper";
 import {FontAwesome} from "react-native-vector-icons";
+import axios from 'axios'
+import {hotelRoomImagesURI} from "../../../constants/Addresses";
+import Loading from "../../../components/atoms/Loading/Loading";
 
 const {width, height} = Dimensions.get('window')
-
-
 
 const chartConfig = {
     backgroundGradientFrom: "#1E2923",
@@ -25,6 +26,10 @@ const chartConfig = {
 
 const RoomDetails = props => {
 
+    const [background, setbackground] = useState(null)
+    const [chartData, setchartData] = useState([])
+    const [loading , setloading] = useState(false)
+
     const room = useSelector(State => {
         let tempRoom = {}
         State.accountDetails.roomInfo.forEach((roomInfo)=>{
@@ -35,8 +40,8 @@ const RoomDetails = props => {
     })
         return tempRoom
     })
-
-    const [chartData, setchartData] = useState([])
+    const rooms = useSelector(State => State.accountDetails.roomInfo)
+    const hotel = useSelector(State => State.accountDetails)
 
     useEffect(()=>{
         setchartData(
@@ -65,9 +70,33 @@ const RoomDetails = props => {
         ]
         )
     }, [room])
+    useEffect(()=>{
+        const fetchCover = async() => {
+            setloading(true)
+            try{
+                const imgs = await axios.get("/hotels/"+hotel._id+"/getimages/"+room.key)
+                imgs.data.forEach((image)=>{
+                    console.log(image)
+                    if(image.includes('cover')){
+                        setbackground({uri:hotelRoomImagesURI+image})
+                    }
+                })
+                setloading(false)
+            }
+            catch{
+                setloading(false)
+            }
+        }
+        fetchCover()
+    },[])
+    useEffect(() => {
+        props.navigation.setParams({
+            loading: loading
+        })
+    }, [loading])
 
     return(
-        <ImageBackground source={room_back} style={styles.backgroundImage}>
+        <ImageBackground source={background} style={styles.backgroundImage}>
             <LinearGradient
                 style={styles.inner}
                 colors={['transparent', 'rgba(0,0,0,0.8)']}
@@ -104,17 +133,17 @@ const RoomDetails = props => {
                     </View>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <View style={styles.subtitleIndicator}></View>
-                        <Text style={{...styles.subtitle, marginTop: 2}}>at Rs.{room.price} per night</Text>
+                        <Text style={{...styles.body, marginTop: 2}}>at Rs.{room.price} per night</Text>
                     </View>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <View style={{...styles.bodyIndicator, borderBottomRightRadius: 10}}></View>
-                        <Text style={styles.body}>Lorem ipsum dolor sit ameue deleniti dolor eligendi est expedita id iste iusto labore maxime nihil, nisi obcaecati odio pariatur, quisquam quod reiciendis suscipit veniam.</Text>
+                        <Text style={styles.body}>{room.description?room.description:'No Description Available'}</Text>
                     </View>
                     <View style={{flexDirection: 'row', justifyContent: 'center', margin: '8%'}}>
                         <Button
                             icon="pencil"
                             mode="outlined"
-                            onPress={()=>props.navigation.navigate('editProfile')}
+                            onPress={()=>props.navigation.navigate('editProfile',{room, rooms, hotel})}
                             style={styles.button}
                             color='white'
                         >
@@ -123,7 +152,7 @@ const RoomDetails = props => {
                         <Button
                             icon="camera"
                             mode="outlined"
-                            onPress={() => console.log('Pressed')}
+                            onPress={() => props.navigation.navigate('addPhotos',{room, rooms, hotel})}
                             style={styles.button}
                             color='white'
                         >
@@ -136,7 +165,7 @@ const RoomDetails = props => {
     )
 }
 
-RoomDetails.navigationOptions = navData => {
+RoomDetails.navigationOptions = ({navigation}) => {
     return {
         // headerShown: false,
         headerTintColor: 'white',
@@ -145,22 +174,15 @@ RoomDetails.navigationOptions = navData => {
             backgroundColor: 'rgba(255, 255, 255 ,0)'
         },
         headerTitle: 'Room Profile',
-        // headerLeft: (
-        //     <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        //         <Item
-        //             title="Menu"
-        //             iconName="ios-menu"
-        //             onPress={() => {
-        //                 navData.navigation.toggleDrawer();
-        //             }}
-        //         />
-        //     </HeaderButtons>
-        // )
+        headerRight: () => (
+            navigation.state.params.loading?
+                <Loading animating={navigation.state.params.loading} color={Colors.DefaultTheme.splashBackground}/>:null)
     };
 };
 
 const styles = StyleSheet.create({
     backgroundImage: {
+        backgroundColor: Colors.DarkTheme.background,
         flex: 1,
         height: height
     },

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     bar:{
         height: '12%',
-        backgroundColor: Colors.DefaultTheme.primaryVariant,
+        backgroundColor: Colors.DefaultTheme.onSurface,
         borderRadius: 5
     },
     filled:{
