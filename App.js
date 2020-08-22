@@ -19,7 +19,7 @@ import * as SecureStore from "expo-secure-store";
 const getHeader = async() =>  await SecureStore.getItemAsync('Authorization')
 
 axios.defaults.baseURL = uri;
-// axios.defaults.headers.common['Authorization'] = 'Bearer '+ getHeader();
+axios.defaults.headers.common['Authorization'] = 'Bearer '+ getHeader();
 
 const rootReducer = combineReducers({
     authentication,

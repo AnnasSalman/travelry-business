@@ -5,6 +5,11 @@ import Colors from "../../../constants/Colors";
 
 
 const {width, height} = Dimensions.get('window')
+
+//Props:
+// animating(boolean)(required),
+// type('Fold'/null)(optional),
+// color(color)(optional)
 const Loading = props => {
     const [animationHeight, setanimationHeight] = useState(0)
 
@@ -19,7 +24,7 @@ const Loading = props => {
     return(
         props.type==='Fold'?
             <View style={{...styles.container, height: animationHeight}}>
-                <Fold size={30} animating={props.animating} color={props.color?props.color:'white'}/>
+                <Fold size={props.size?props.size:30} animating={props.animating} color={props.color?props.color:'white'}/>
             </View>:
             <View style={{...styles.container, height: animationHeight}}>
                 <Pulse size={30} animating={props.animating} color={props.color?props.color:'white'}/>

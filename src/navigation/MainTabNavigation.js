@@ -13,6 +13,7 @@ import RoomNavigation from "./RoomNavigation";
 //assets
 import { Ionicons } from 'react-native-vector-icons'
 import Colors from '../constants/Colors'
+import CalendarNavigation from "./CalendarNavigation";
 
 const tabScreenConfig = {
     Home: {
@@ -41,12 +42,12 @@ const tabScreenConfig = {
         }
     },
      Calendar: {
-        screen: Calendar,
+        screen: CalendarNavigation,
         navigationOptions: {
             tabBarIcon: tabInfo => {
                 return <Ionicons name="ios-calendar" size={25} color={tabInfo.tintColor} />;
             },
-            tabBarColor: Colors.DefaultTheme.primary
+            tabBarColor: Colors.DarkTheme.background
         }
     },
     Chats: {

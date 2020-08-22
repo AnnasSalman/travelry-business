@@ -25,7 +25,8 @@ const updateRooms = async(room, rooms, hotel) => {
     roomsUpdated[roomIndex] = room
     try{
         const roomResult = await axios.put('/users/hotel/'+hotel._id+'/updaterooms', {
-            roomInfo: roomsUpdated
+            roomInfo: roomsUpdated,
+            room: room
         })
         if(roomResult.status===200){
             return roomResult.data.roomInfo

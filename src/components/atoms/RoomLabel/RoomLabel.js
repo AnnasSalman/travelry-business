@@ -2,7 +2,6 @@ import React from 'react'
 import {View, Text, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
 import Colors from "../../../constants/Colors";
 import {IconButton} from 'react-native-paper'
-import {Ionicons} from "react-native-vector-icons";
 import Bar from "./Bar/Bar";
 
 const { height, width } = Dimensions.get('window')
