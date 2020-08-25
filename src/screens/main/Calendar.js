@@ -49,6 +49,7 @@ const Calendar = props =>{
                     const calresponse = await axios.get('/bookings/hotel/' + hotelid + '/month/' + (month + 1) + '/year/' + year)
                     setFirstLoad(true)
                     setloadedMonths([...loadedMonths, (monthString) + '-' + year])
+                    console.log(calresponse.data)
                     setcalendar(calresponse.data)
                     setloading(false)
                     setrefresing(false)

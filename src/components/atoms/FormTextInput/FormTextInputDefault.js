@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         margin: 20,
         marginBottom: 5,
         marginTop: 5,
-        backgroundColor: Colors.DefaultTheme.background,
+        backgroundColor: 'white',
     },
 });
 

@@ -23,7 +23,7 @@ const NumberConfirmationScreen = props => {
             await firebase.auth().signInWithCredential(credential);
             props.navigation.navigate('password', {phone: props.navigation.state.params.phone})
         } catch (err) {
-            console.log(err)
+            console.log('ERROR auth')
         }
     }
 
