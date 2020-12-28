@@ -31,32 +31,33 @@ const createAccountScreen = props => {
     }
 
     const captchaRequest = async (phoneNumber) => {
-        setButtonText('')
-        setLoading(true)
-        try {
-            const isUser = await Axios.get('/users/isuser/'+phoneNumber)
-            console.log(isUser)
-            if (isUser.data.status) {
-                doesUserExists(true)
-                setLoading(false)
-                setButtonText('CONTINUE')
-                setnumValid(false)
-                return
-            }
-        }
-        catch(error){
-            console.log(error)
-        }
-        try {
-            const phoneProvider = new firebase.auth.PhoneAuthProvider();
-            const verificationId = await phoneProvider.verifyPhoneNumber(
-                '+92'+phoneNumber,
-                recaptchaVerifier.current
-            );
-            props.navigation.navigate('numberVerification',{verificationId: verificationId, phone: phoneNumber})
-        } catch (err) {
-            console.log(err.type(),"phone: ",phoneNumber);
-        }
+        // setButtonText('')
+        // setLoading(true)
+        // try {
+        //     const isUser = await Axios.get('/users/isuser/'+phoneNumber)
+        //     console.log(isUser)
+        //     if (isUser.data.status) {
+        //         doesUserExists(true)
+        //         setLoading(false)
+        //         setButtonText('CONTINUE')
+        //         setnumValid(false)
+        //         return
+        //     }
+        // }
+        // catch(error){
+        //     console.log(error)
+        // }
+        // try {
+        //     const phoneProvider = new firebase.auth.PhoneAuthProvider();
+        //     const verificationId = await phoneProvider.verifyPhoneNumber(
+        //         '+92'+phoneNumber,
+        //         recaptchaVerifier.current
+        //     );
+        //     props.navigation.navigate('numberVerification',{verificationId: verificationId, phone: phoneNumber})
+        // } catch (err) {
+        //     console.log(err.type(),"phone: ",phoneNumber);
+        // }
+        props.navigation.navigate('password',{phone: phoneNumber})
     }
 
     const validateNumber = (num) => {

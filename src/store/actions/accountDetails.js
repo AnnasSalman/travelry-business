@@ -7,6 +7,7 @@ export const ADD_FACILITY_INFO = 'ADD_FACILITY_INFO';
 export const ADD_AMENITIES = 'ADD_AMENITIES';
 export const ADD_POLICIES = 'ADD_POLICIES';
 export const ADD_ACCOUNT_DETAILS = 'ADD_ACCOUNT_DETAILS';
+export const UPDATE_GEOMETRY = 'UPDATE_GEOMETRY'
 
 
 export const addBasicInfo = basicInfo => {
@@ -35,4 +36,7 @@ export const addPolicies = policies => {
 };
 export const addAccountDetails = details => {
     return { type: ADD_ACCOUNT_DETAILS, details };
+};
+export const updateGeometry = geometry => {
+    return { type: UPDATE_GEOMETRY, geometry}
 };

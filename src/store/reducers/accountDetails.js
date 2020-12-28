@@ -7,7 +7,8 @@ import {
     ADD_FACILITY_INFO,
     ADD_AMENITIES,
     ADD_POLICIES,
-    ADD_ACCOUNT_DETAILS
+    ADD_ACCOUNT_DETAILS,
+    UPDATE_GEOMETRY
 } from '../actions/accountDetails';
 
 const initialState = {
@@ -76,7 +77,11 @@ export default (state= initialState, action) => {
             return{
                 ...action.details
             }
-
+        case UPDATE_GEOMETRY:
+            return{
+                ...state,
+                geometry: action.geometry
+            }
     }
     return state
 }

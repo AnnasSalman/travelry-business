@@ -47,7 +47,8 @@ const InitScreen = props => {
                 <Text style={styles.terms}>By tapping "Log in" or "Create a new account", you agree to our terms.</Text>
                 <View style={styles.buttonContainer}>
                     <Button mode="text"
-                            onPress={() => navcreateAccountScreen()}
+                            // onPress={() => navcreateAccountScreen()}
+                            onPress={()=>props.navigation.navigate('createAccount')}
                             uppercase={false}
                             color={Colors.DarkTheme.onSurface}
                             style={{...styles.textButton, marginTop: 20}}>

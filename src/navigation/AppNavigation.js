@@ -10,6 +10,7 @@ import passwordScreen from "../screens/passwordScreen";
 import LoginScreen from "../screens/LoginScreen";
 import HomeScreen from "../screens/HomeScreen";
 import MainTabNavigation from "./MainTabNavigation";
+import AddLocation from "../screens/main/Home/AddLocation";
 
 
 
@@ -58,7 +59,13 @@ const AppNavigation = createStackNavigator({
             navigationOptions: {
                 ...TransitionPresets.DefaultTransition
             }
-        }
+        },
+        locationScreen:{
+            screen: AddLocation,
+            navigationOptions: {
+                ...TransitionPresets.DefaultTransition
+            }
+        },
     },
     {
         defaultNavigationOptions: {
